@@ -1,71 +1,123 @@
 set nocompatible
-filetype off " required
+syntax on
+set nowrap
+set encoding=utf8
 
+""""""""""""""""""""""
+" START Vundle Config
+""""""""""""""""""""""
+
+filetype off " required for Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle (required)
 Plugin 'VundleVim/Vundle.vim'
 
+" Utility Plugins
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'klen/python-mode'
-Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'ctrlpvim/ctrlp.vim'
 
-call vundle#end()
+" Generic Programming Support
+Plugin 'universal-ctags/ctags'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'dense-analysis/ale'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/supertab'
 
+" Git Support
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
-filetype plugin indent on
+" Python Support
+"Plugin 'python-mode/python-mode'
+"#Plugin 'ambv/black'
 
-set nowrap
-syntax enable
-set term=screen-256color
+" Openscad support
+"Plugin 'sirtaj/vim-openscad'
 
-map <Esc>OH <Home>
-map! <Esc>OH <Home>
-map <Esc>OF <End>
-map! <Esc>OF <End>
+" Theme / Interface
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-scripts/CycleColor'
 
-augroup vimrc_autocmds
-  autocmd!
-  autocmd FileType python highlight Excess ctermbg=DarkRed guibg=Black
-  autocmd FileType python match Excess /\%80v.*/
-  autocmd FileType python set nowrap
-augroup END
+Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'christophermca/meta5'
+Plugin 'tomasiser/vim-code-dark'
 
-map <F2> :NERDTreeToggle<CR>
+call vundle#end() " (required)
+filetype plugin indent on " (required)
 
-let g:pymode_rope = 0
-let g:pymode_lint = 1
-let g:pymode_lintchecker = "pyflakes,pep8"
-let g:pymode_lint_writer = 1
-let g:pymode_virtualenv = 1
+""""""""""""""""""""
+" END Vundle Config
+""""""""""""""""""""
 
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
+" Line number related config
+set number
+set relativenumber
+set ruler
 
-let g:pymode_folding = 0
-
-nmap <leader>l :set list!<CR>
+" Set Proper Tabs
 set tabstop=4
 set shiftwidth=4
+set smarttab
 set expandtab
 
+" 'Fix' default split creation directions
+set splitright
+set splitbelow
 
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
-set completeopt-=preview
+" Always display status line
+set laststatus=2
 
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
+" Enable highlighting of current line
+set cursorline
+
+" Theme and Styling
+set t_Co=256
+set t_ut=
+"set background=dark
+
+if (has("termguicolors"))
+    set termguicolors
+    let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+    let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 endif
 
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
-set laststatus=2
-set t_Co=256
+colorscheme codedark
+
+let g:airline_theme = 'codedark'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1
+
+let g:ale_warn_about_trailing_whitespace = 1
+let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
+let g:ale_set_highlights = 0
+let g:ale_sign_column_always = 1
+
+let g:ale_python_auto_pipenv = 1
+let g:ale_python_mypy_auto_pipenv = 1
+
+"set completeopt-=preview
+
+let g:jedi#popup_on_dot = "0"
+let g:jedi#show_call_signatures = "0"
+let g:jedi#use_splits_not_buffers = "left"
+
+"""""""""""""""
+" Key Mappings
+"""""""""""""""
+
+map <F2> :NERDTreeToggle<CR>
+map <F3> :TagbarToggle<CR>
+map <F8> :TagbarOpenAutoClose<CR>
+
+" Omnicomplete Better Nav
+inoremap <expr> <c-j> ("\<C-n>")
+inoremap <expr> <c-k> ("\<C-p>")
+
+nnoremap <Leader>O :CtrlP<CR>
+nmap <leader>l :set list!<CR>
