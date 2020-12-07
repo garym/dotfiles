@@ -32,3 +32,8 @@ svngrep() { grep  --color=always --exclude-dir=".svn" -r "$1" . | less -R; }
 
 export PS1="\e[m$PS1\e[0:32m"
 set -o vi
+
+# disable software flow control (Ctrl-S Ctrl-Q in terminals)
+if [ -t 1 ]; then
+  stty -ixon
+fi
