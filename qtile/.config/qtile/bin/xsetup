@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/usr/bin/xset b off
+/usr/bin/xset r rate 200 30
+/usr/bin/setxkbmap -option caps:none

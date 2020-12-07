@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 base=$(dirname $0)
 cd "$base"
 for dir in *; do

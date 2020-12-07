@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+add_module() {
+  local base=$(dirname $0)
+  local plugin_base="$base/vim/.vim/pack"
+  local category=$1
+  local plugin_name=$2
+  local start_or_opt=${3:-start}
+  local startopt
+
+  case "$start_or_opt" in
+    s* ) startopt="start" ;;
+    * ) startopt="opt" ;;
+  esac
+
+  git_repo="https://github.com/$plugin_name.git"
+  submodule_base="$plugin_base/$category/$startopt"
+  plugin_dir="$submodule_base/${plugin_name#*/}"
+
+  mkdir -p "$submodule_base"
+  git submodule add "$git_repo" "$plugin_dir"
+}
+
+add_theme_modules() {
+  local items=(
+    vim-airline/vim-airline
+    vim-airline/vim-airline-themes
+    ryanoasis/vim-devicons
+    tomasiser/vim-code-dark
+  )
+
+  for item in "${items[@]}"; do
+    add_module theme "$item"
+  done
+}
+
+add_utility_modules() {
+  local items=(
+    preservim/nerdtree
+    preservim/tagbar
+    ctrlpvim/ctrlp.vim
+  )
+
+  for item in "${items[@]}"; do
+    add_module utility "$item"
+  done
+}
+
+add_ide_modules() {
+  local items=(
+    dense-analysis/ale
+    davidhalter/jedi-vim
+    SirVer/ultisnips
+    honza/vim-snippets
+    tpope/vim-fugitive
+    sheerun/vim-polyglot
+    ludovicchabant/vim-gutentags
+    airblade/vim-gitgutter
+  )
+  # python-rope/ropevim
+  # universal-ctags/ctags
+  # vim-syntastic/syntastic
+  # ervandew/supertab
+
+  for item in "${items[@]}"; do
+    add_module ide "$item"
+  done
+}
+
+add_theme_modules
+add_utility_modules
+add_ide_modules

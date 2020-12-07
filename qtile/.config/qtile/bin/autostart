@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -x
+echo "xsetup" > ~/.local/var/log/autostart.log
+~/.config/qtile/bin/xsetup
+killall xscreensaver nm-applet
+nohup /usr/bin/xscreensaver -no-capture-stderr -no-splash >~/.local/var/log/autostart_xscreensaver 2>&1 &
+nohup /usr/bin/nm-applet >~/.local/var/log/autostart_nm_applet.log 2>&1 &
