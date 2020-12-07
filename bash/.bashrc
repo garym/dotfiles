@@ -22,4 +22,13 @@ if [ -d "$HOME/.nvm" ]; then
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
 
+if [ -x /usr/bin/src-hilite-lesspipe.sh ]; then
+  export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
+fi
+
+export LESS=' -R -F -X '
+
 svngrep() { grep  --color=always --exclude-dir=".svn" -r "$1" . | less -R; }
+
+export PS1="\e[m$PS1\e[0:32m"
+set -o vi

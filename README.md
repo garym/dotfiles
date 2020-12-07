@@ -38,15 +38,10 @@ to the user. The list below is an incomplete list of the programs that are
 included:
 
  * bash
+ * neovim (sharing configuration with vim)
  * powerline
  * python
+ * qtile
  * spacemacs
- * tmux (including tmuxinator)
- * vim with the following plugins (using Vundle)
-   * [Vundle](https://github.com/VundleVim/Vundle.vim "Vundle on github")
-   * [nerdtree](https://github.com/scrooloose/nerdtree "nerdtree on github")
-   * [syntastic](https://github.com/scrooloose/syntastic "syntastic on github")
-   * [YouCompleteMe](https://github.com/Valloric/YouCompleteMe "YouCompleteMe on github")
-   * [python-mode](https://github.com/klen/python-mode "python-mode on github")
-   * [ctrlp.vim](https://github.com/kien/ctrlp.vim "ctrlp.vim on github")
- 
+ * tmux
+ * vim including plugins and configuration to make it a bit ide-like
