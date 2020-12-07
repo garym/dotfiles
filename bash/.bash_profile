@@ -7,7 +7,7 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
+PATH=$HOME/bin-overrides:$PATH:$HOME/.local/bin:$HOME/bin
 
 export PATH
 export EDITOR=vim
