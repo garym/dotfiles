@@ -1,4 +1,6 @@
 set nocompatible
+filetype plugin on
+
 syntax on
 set nowrap
 set encoding=utf8
@@ -89,7 +91,6 @@ map <F2> :NERDTreeToggle<CR>
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']
 let NERDTreeShowHidden=1
-autocmd VimEnter * NERDTree
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
