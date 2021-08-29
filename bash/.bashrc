@@ -7,11 +7,15 @@ fi
 
 # User specific aliases and functions
 
-if [ -f "$(type -p powerline-daemon)" ]; then
+if command -v powerline-daemon >/dev/null 2>&1 ; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
   . /usr/share/powerline/bash/powerline.sh
+fi
+
+if command -v nvim >/dev/null 2>&1 ; then
+  EDITOR="nvim"
 fi
 
 [ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"

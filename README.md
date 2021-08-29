@@ -38,10 +38,20 @@ to the user. The list below is an incomplete list of the programs that are
 included:
 
  * bash
- * neovim (sharing configuration with vim)
+ * neovim
  * powerline
  * python
  * qtile
  * spacemacs
  * tmux
- * vim including plugins and configuration to make it a bit ide-like
+ * vim
+
+Vim and Neovim currently have separate configurations which both rely on
+plugins. Rather than make use of git submodules, there are some basic plugin
+update scripts that will:
+ 1. install the plugin manager if not already installed
+ 2. run the update
+
+At the moment these scripts are not smart enough to exit after starting up the
+editor to run the command. They are idempotent but basically only intended as
+a basic convenience at initial configuration time.

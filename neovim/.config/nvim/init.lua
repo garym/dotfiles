@@ -1,0 +1,16 @@
+require('basic')
+require('terminal.settings')
+require('terminal.keys')
+
+require('plugins.setup')
+require('plugins.lualine')
+require('plugins.theme_ayu')
+-- require('plugins.theme_iceberg')
+-- lua require('plugins.theme_nord')
+
+require('plugins.ale')
+require('plugins.ctrlp')
+require('plugins.nvim_tree')
+require('plugins.tagbar')
+require('plugins.toggleterm')
+require('plugins.ultisnips')

@@ -1,4 +1,34 @@
-set nocompatible
+function! PackInit() abort
+  packadd minpac
+
+  call minpac#init()
+  call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+  call minpac#add('vim-airline/vim-airline')
+  call minpac#add('vim-airline/vim-airline-themes')
+  call minpac#add('ryanoasis/vim-devicons')
+  call minpac#add('tomasiser/vim-code-dark')
+
+  call minpac#add('preservim/nerdtree')
+  call minpac#add('preservim/tagbar')
+  call minpac#add('ctrlpvim/ctrlp.vim')
+  call minpac#add('jceb/vim-orgmode')
+
+  call minpac#add('dense-analysis/ale')
+  call minpac#add('davidhalter/jedi-vim')
+  call minpac#add('SirVer/ultisnips')
+  call minpac#add('honza/vim-snippets')
+  call minpac#add('tpope/vim-fugitive')
+  call minpac#add('sheerun/vim-polyglot')
+  call minpac#add('ludovicchabant/vim-gutentags')
+  call minpac#add('airblade/vim-gitgutter')
+endfunction
+
+command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean  call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
+
+
 filetype plugin on
 
 syntax on
@@ -88,7 +118,7 @@ let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
 " Nerdtree configuration
 map <F2> :NERDTreeToggle<CR>
-map <C-n> :NERDTreeToggle<CR>
+"map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']
 let NERDTreeShowHidden=1
 let g:NERDTreeDirArrowExpandable = '▸'
@@ -98,6 +128,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " Set commands to switching between buffers
 :nnoremap <Tab> :bnext!<CR>
 :nnoremap <S-Tab> :bprevious!<CR>
-:nnoremap <C-X> :bp<bar>sp<bar>bn<bar>bd<CR>
+:nnoremap <C-K> :bp<bar>sp<bar>bn<bar>bd<CR>
 
 map <C-p> :Files<CR>
