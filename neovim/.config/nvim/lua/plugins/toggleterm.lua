@@ -1,18 +1,16 @@
 require("toggleterm").setup{
   size = 20,
   open_mapping = [[<c-\>]],
-  hide_numbers = true, -- hide the number column in toggleterm buffers
+  hide_numbers = true,
   shade_filetypes = {},
   shade_terminals = true,
-  shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+  shading_factor = 1,
   start_in_insert = true,
-  insert_mappings = true, -- whether or not the open mapping applies in insert mode
+  insert_mappings = true,
   persist_size = true,
-  -- direction = 'float',
   direction = 'horizontal',
-  close_on_exit = true, -- close the terminal window when the process exits
-  shell = vim.o.shell, -- change the default shell
-  -- This field is only relevant if direction is set to 'float'
+  close_on_exit = true,
+  shell = vim.o.shell,
   float_opts = {
     border = 'curved',
     winblend = 0,
@@ -22,3 +20,23 @@ require("toggleterm").setup{
     }
   }
 }
+
+local Terminal  = require('toggleterm.terminal').Terminal
+
+local top = Terminal:new({
+  cmd = "command -v htop 2>&1 /dev/null && htop || top",
+  hidden = true,
+  shell = vim.o.shell, -- change the default shell
+  direction = "float",
+  float_opts = {
+    border = 'curved',
+    winblend = 0,
+  },
+})
+
+function _top_toggle()
+  top:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>lua _top_toggle()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("t", "<leader>tt", "<cmd>lua _top_toggle()<CR>", {noremap = true, silent = true})
