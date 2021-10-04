@@ -41,3 +41,10 @@ set -o vi
 if [ -t 1 ]; then
   stty -ixon
 fi
+
+DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
+if command -v flatpak-spawn>/dev/null 2>&1 ; then
+  alias docker-compose='flatpak-spawn --host --env=DOCKER_HOST=$DOCKER_HOST docker-compose'
+  alias docker='flatpak-spawn --host docker'
+  alias podman='flatpak-spawn --host podman'
+fi
