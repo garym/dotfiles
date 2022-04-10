@@ -67,3 +67,8 @@ The Neovim configuration may also require the following packages:
  * python3-flake8
  * file
  * htop/top
+
+Additional Packages
+-------------------
+
+ * source-highlight

@@ -48,3 +48,12 @@ if command -v flatpak-spawn>/dev/null 2>&1 ; then
   alias docker='flatpak-spawn --host docker'
   alias podman='flatpak-spawn --host podman'
 fi
+
+if [ -f "/run/.containerenv" ]; then
+  export TOOLBOX_NAME_ENV="$(awk -F'"' '/name=/ {print $2}' /run/.containerenv)"
+  export TOOLBOX_POWERLINE_DISPLAY="⬢ [$TOOLBOX_NAME_ENV]"
+  alias emacs='emacsclient -c -a "emacs"'
+  alias xdg-open='flatpak-xdg-open'
+else
+  alias emacs='toolbox run --container dev emacsclient -c -a "emacs"'
+fi
