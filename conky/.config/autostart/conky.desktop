@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Conky
+GenericName=background monitor
+Comment=Keep a background eye on your system
+Exec=conkystartup
+Terminal=false
+Type=Application
+Icon=conky
+Categories=System;
+StartupNotify=false

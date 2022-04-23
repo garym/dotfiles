@@ -7,7 +7,9 @@ fi
 
 # User specific aliases and functions
 
-if command -v powerline-daemon >/dev/null 2>&1 ; then
+if command -v starship >/dev/null 2>&1 ; then
+  eval "$(starship init bash)"
+elif command -v powerline-daemon >/dev/null 2>&1 ; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
@@ -16,9 +18,15 @@ fi
 
 if command -v nvim >/dev/null 2>&1 ; then
   EDITOR="nvim"
+else
+  EDITOR="vi"
 fi
 
-[ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
+[ -n "$VISUAL" ] || VISUAL="$EDITOR"
+export VISUAL
+export EDITOR
+
+[ -f "$HOME/.config/python/pythonstartup.py" ] && export PYTHONSTARTUP="$HOME/.config/python/pythonstartup.py"
 
 if [ -d "$HOME/.nvm" ]; then
   export NVM_DIR="$HOME/.nvm"
@@ -33,9 +41,6 @@ fi
 export LESS=' -R -F -X '
 
 svngrep() { grep  --color=always --exclude-dir=".svn" -r "$1" . | less -R; }
-
-export PS1="\e[m$PS1\e[0:32m"
-set -o vi
 
 # disable software flow control (Ctrl-S Ctrl-Q in terminals)
 if [ -t 1 ]; then
