@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Gary Martin"
-      user-mail-address "gary.martin@physics.org")
+;(setq user-full-name "John Doe"
+;      user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -28,19 +28,19 @@
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
+;(setq doom-font (font-spec :family "SpaceMono Nerd Font Mono" :size 15)
+;      doom-variable-pitch-font (font-spec :family "SpaceMono Nerd Font" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-city-lights)
-;;(custom-set-faces
-;; '(default ((t (:background "#000000")))))
-(setq doom-font (font-spec :family "SpaceMono Nerd Font Mono" :size 15)
-      doom-variable-pitch-font (font-spec :family "SpaceMono Nerd Font" :size 15))
+(setq doom-theme 'doom-ir-black)
+(map! :leader
+      :desc "Load new theme" "h t" #'load-theme)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type `relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -79,5 +79,49 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq browse-url-firefox-program "/usr/bin/flatpak-xdg-open")
-(setq projectile-project-search-path '(("~/projects" . 2)))
+(beacon-mode t)
+
+(setq
+  projectile-project-search-path '("~/projects/active/" "~/dotfiles"))
+(map! :leader
+      :desc "Discover projects in search path" "p ?" #'projectile-discover-projects-in-search-path)
+
+(map! :leader
+      (:prefix ("b". "buffer")
+       :desc "List bookmarks" "L" #'list-bookmarks
+       :desc "Set bookmark" "m" #'bookmark-set
+       :desc "Delete bookmark" "M" #'bookmark-delete
+       :desc "Save bookmark" "w" #'bookmark-save))
+
+(after! centaur-tabs
+  (centaur-tabs-mode -1)
+  (setq centaur-tabs-set-bar 'over
+        centaur-tabs-set-icons t
+        centaur-tabs-gray-out-icons 'buffer
+        centaur-tabs-height 24
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-style "bar"
+        centaur-tabs-modified-marker "·"))
+
+(evil-define-key 'normal centaur-tabs-mode-map (kbd "g <right>") 'centaur-tabs-forward ; default Doom binding is 'g t'
+                                               (kdb "g <left>") 'centaur-tabs-backward ; default Doom binding is 'g T'
+                                               (kbd "g <down>") 'centaur-tabs-forward-group
+                                               (kdb "g <up>") 'centaur-tabs-backward-group)
+
+;(after! neotree
+;  (setq neo-smart-open t
+;        neo-window-fixed-size nil))
+;(after! doom-themes
+;  (setq doom-neotree-enable-variable-pitch t))
+;(map! :leader
+;      :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
+;      :desc "Open directory in neotree" "d n" #'neotree-dir)
+
+;(setq projectile-switch-project-action 'neotree-projectile-action)
+
+(after! treemacs
+  :config
+  (treemacs-follow-mode t))
+
+(map!
+ [remap evil-quit] #'kill-current-buffer)
